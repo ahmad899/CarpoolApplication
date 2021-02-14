@@ -15,6 +15,7 @@ export default StyleSheet.create({
     margin: 70,
     marginTop: 50,
   },
+  inputContainer: {},
   input: {
     height: 48,
     borderRadius: 5,
@@ -61,5 +62,16 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0,
     justifyContent: "center",
+  },
+
+  ////////////////////////////////////loading////////////////////
+  spinnerContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
   },
 });
