@@ -5,19 +5,44 @@ import {
   Stylesheet,
   TouchableOpacity,
   StyleSheet,
+  KeyboardAvoidingView,
+  StatusBar,
+  SafeAreaView,
+  Keyboard,
+  TouchableWithoutFeedback,
+  Button,
+  Pressable,
 } from "react-native";
 import { Input } from "react-native-elements";
+import { TextInput } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
 import HomeScreenMap from "../../components/HomeScreenMap/HomeScreenMap";
 import style from "../LoginScreen/style";
 const HomeScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>Where To ?</Text>
-      </View>
+    <SafeAreaView style={styles.container}>
       <HomeScreenMap />
-    </View>
+      <View style={styles.inputContainer}>
+        <View style={styles.input}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("PostRide");
+            }}
+          >
+            <Text style={styles.text}>Post Ride</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.input}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("PostRide");
+            }}
+          >
+            <Text style={styles.text}>View Rides</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -29,11 +54,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  textContainer: {},
-  text: {
+  inputContainer: {
     position: "absolute",
-    left: 0,
-    bottom: 0,
-    fontSize: 90,
+    top: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  input: {
+    width: "40%",
+    height: 50,
+    borderRadius: 100,
+    overflow: "hidden",
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 10,
+    padding: 10,
+  },
+  text: {
+    fontSize: 15,
+    margin: 10,
+    color: "black",
+    fontWeight: "bold",
   },
 });

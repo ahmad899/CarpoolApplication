@@ -1,7 +1,5 @@
 import { StyleSheet } from "react-native";
 
-
-
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -15,7 +13,6 @@ export default StyleSheet.create({
     borderRadius: 999,
     margin: 50,
     marginTop: 20,
-    
   },
   input: {
     height: 48,
@@ -27,6 +24,19 @@ export default StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
     paddingLeft: 16,
+  },
+
+  radioButton: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginHorizontal: 50,
+
+    alignItems: "center",
+  },
+  radioText: {
+    fontSize: 15,
+    fontWeight: "bold",
+    marginRight: 40,
   },
   button: {
     backgroundColor: "#ad462f",

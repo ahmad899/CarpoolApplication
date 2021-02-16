@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   FlatList,
+  TextInput,
 } from "react-native";
 import { Input } from "react-native-elements";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
