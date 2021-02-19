@@ -3,9 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 const Profile = ({ navigation }) => {
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: "Profile",
-    });
+    navigation.setOptions({});
   }, [navigation]);
   return (
     <View>

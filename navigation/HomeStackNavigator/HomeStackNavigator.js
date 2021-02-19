@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Button, DevSettings, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -14,10 +14,11 @@ import { EvilIcons } from "@expo/vector-icons";
 import { DrawerActions } from "@react-navigation/native";
 import { auth } from "../../firebaseConfig/firebaseConfig";
 import PostRideScreen from "../../src/screens/PostRideScreen/PostRideScreen";
-import HistoryRideScreen from "../../src/screens/HistoryRIdeScreen/HistoryRIdeScreen";
+import HistoryRideScreen from "../../src/screens/HistoryRideScreen/HistoryRideScreen";
 import RideScreen from "../../src/screens/RideScreen/RideScreen";
 import DrawerContent from "../../src/components/DrawerContent/DrawerContent";
-
+import ViewRidesScreen from "../../src/screens/ViewRidesScreen/ViewRidesScreen";
+import SettingStackNavigation from "../SettingStackNavigation/SettingStackNavigation";
 const Drawer = createDrawerNavigator();
 
 const HomeStackNavigator = ({ navigation }) => {
@@ -31,7 +32,7 @@ const HomeStackNavigator = ({ navigation }) => {
           <EvilIcons
             name="navicon"
             size={35}
-            color="black"
+            color="white"
             style={{ marginLeft: 5 }}
           />
         </TouchableOpacity>
@@ -43,11 +44,11 @@ const HomeStackNavigator = ({ navigation }) => {
   return (
     <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Profile" component={Profile} />
       <Drawer.Screen name="Ride" component={RideScreen} />
       <Drawer.Screen name="PostRide" component={PostRideScreen} />
       <Drawer.Screen name="History" component={HistoryRideScreen} />
       <Drawer.Screen name="Settings" component={Settings} />
+      <Drawer.Screen name="ViewRides" component={ViewRidesScreen} />
     </Drawer.Navigator>
   );
 };

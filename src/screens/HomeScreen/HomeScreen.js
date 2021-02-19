@@ -21,6 +21,7 @@ import style from "../LoginScreen/style";
 const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="#ad462f" />
       <HomeScreenMap />
       <View style={styles.inputContainer}>
         <View style={styles.input}>
@@ -65,7 +66,8 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 100,
     overflow: "hidden",
-    backgroundColor: "white",
+    backgroundColor: "#ad462f",
+
     justifyContent: "center",
     alignItems: "center",
     margin: 10,
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 15,
     margin: 10,
-    color: "black",
+    color: "white",
     fontWeight: "bold",
   },
 });

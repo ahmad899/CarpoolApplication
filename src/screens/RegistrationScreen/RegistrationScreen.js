@@ -42,13 +42,16 @@ export default function RegistrationScreen({ navigation }) {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         db.collection("users")
-          .add({
+          .doc(authUser.uid)
+          .set({
             firstName: name,
             secondName: SecondName,
             email: email,
             password: password,
             userType: checked,
+            userId: authUser.uid,
           })
+
           .then(navigation.replace("Home"))
           .catch((error) => alert("Error"));
       }

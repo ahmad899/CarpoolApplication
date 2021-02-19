@@ -9,15 +9,16 @@ import HomeStackNavigator from "./navigation/HomeStackNavigator/HomeStackNavigat
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { EvilIcons } from "@expo/vector-icons";
+import Profile from "./src/screens/Profile/Profile";
 
 const Stack = createStackNavigator();
 
 const App = () => {
   //changing header style for all screen
   const globalScreenOptions = {
-    headerStyle: { backgroundColor: "white", height: 50 },
+    headerStyle: { backgroundColor: "#ad462f", height: 50 },
     headerTitleStyle: {
-      color: "black",
+      color: "white",
     },
     headerTitleAlign: "center",
     headerTintColor: "white",
@@ -38,6 +39,7 @@ const App = () => {
             headerTitle: getFocusedRouteNameFromRoute(route),
           })}
         />
+        <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

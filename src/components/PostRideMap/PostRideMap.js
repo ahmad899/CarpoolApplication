@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
-const HomeScreenMap = (props) => {
+const PostRideMap = (props) => {
   return (
     <MapView
       style={styles.map}
@@ -25,7 +25,7 @@ const HomeScreenMap = (props) => {
   );
 };
 
-export default HomeScreenMap;
+export default PostRideMap;
 
 const styles = StyleSheet.create({
   map: {
