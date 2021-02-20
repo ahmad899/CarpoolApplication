@@ -1,5 +1,12 @@
 import React, { useLayoutEffect } from "react";
-import { Button, DevSettings, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Button,
+  DevSettings,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -18,7 +25,6 @@ import HistoryRideScreen from "../../src/screens/HistoryRideScreen/HistoryRideSc
 import RideScreen from "../../src/screens/RideScreen/RideScreen";
 import DrawerContent from "../../src/components/DrawerContent/DrawerContent";
 import ViewRidesScreen from "../../src/screens/ViewRidesScreen/ViewRidesScreen";
-import SettingStackNavigation from "../SettingStackNavigation/SettingStackNavigation";
 const Drawer = createDrawerNavigator();
 
 const HomeStackNavigator = ({ navigation }) => {

@@ -115,7 +115,9 @@ const DrawerContent = (props) => {
                 <Ionicons name="ios-settings" size={24} color="#ad462f" />
               )}
               label={() => <Text style={styles.DrawerText}>Settings</Text>}
-              onPress={() => props.navigation.navigate("Settings")}
+              onPress={() =>
+                props.navigation.navigate("Settings", { userInfo: user })
+              }
               style={styles.drawerItem}
             />
           </Drawer.Section>
