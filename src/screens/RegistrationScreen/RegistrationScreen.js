@@ -3,8 +3,10 @@ import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { auth, db } from "../../../firebaseConfig/firebaseConfig";
 import style from "../LoginScreen/style";
 import styles from "./style.js";
-import LoadingSpinner from "../../components/loadingSpinner";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import { RadioButton } from "react-native-paper";
+import { KeyboardAvoidingView } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function RegistrationScreen({ navigation }) {
   const [name, setname] = useState("");
@@ -18,7 +20,6 @@ export default function RegistrationScreen({ navigation }) {
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
-
   const onRegisterPress = () => {
     setLoading(true);
     if (password !== confirmPassword) {
@@ -47,12 +48,17 @@ export default function RegistrationScreen({ navigation }) {
             firstName: name,
             secondName: SecondName,
             email: email,
-            password: password,
             userType: checked,
             userId: authUser.uid,
           })
 
-          .then(navigation.replace("Home"))
+          .then(
+            checked === "Driver"
+              ? navigation.push("Driver", {
+                  userId: authUser.uid,
+                })
+              : navigation.replace("Home")
+          )
           .catch((error) => alert("Error"));
       }
     });
@@ -61,92 +67,96 @@ export default function RegistrationScreen({ navigation }) {
   if (loading) return <LoadingSpinner />;
   else
     return (
-      <View style={styles.container} style={{ flex: 1, width: "100%" }}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        style={{ flex: 1, width: "100%" }}
+      >
         <Image
           style={styles.logo}
           source={require("../../../assets/logIn.jpg")}
         />
-
-        <TextInput
-          style={styles.input}
-          placeholder="First Name"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setname(text)}
-          value={name}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-
-        <TextInput
-          style={styles.input}
-          placeholder="Second Name"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setSecondName(text)}
-          value={SecondName}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-
-        <TextInput
-          style={styles.input}
-          placeholder="E-mail"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Password"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Confirm Password"
-          onChangeText={(text) => setConfirmPassword(text)}
-          value={confirmPassword}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <View style={styles.radioButton}>
-          <RadioButton
-            value="Passenger"
-            status={checked === "Passenger" ? "checked" : "unchecked"}
-            onPress={() => setChecked("Passenger")}
-            color="#ad462f"
+        <ScrollView>
+          <TextInput
+            style={styles.input}
+            placeholder="First Name"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setname(text)}
+            value={name}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
           />
-          <Text style={styles.radioText}>Passenger</Text>
 
-          <RadioButton
-            value="Driver"
-            status={checked === "Driver" ? "checked" : "unchecked"}
-            onPress={() => setChecked("Driver")}
-            color="#ad462f"
+          <TextInput
+            style={styles.input}
+            placeholder="Second Name"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setSecondName(text)}
+            value={SecondName}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
           />
-          <Text style={styles.radioText}>Driver</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => onRegisterPress()}
-        >
-          <Text style={styles.buttonTitle}>Create account</Text>
-        </TouchableOpacity>
-        <View style={styles.footerView}>
-          <Text style={styles.footerText}>
-            Already got an account?{" "}
-            <Text onPress={onFooterLinkPress} style={styles.footerLink}>
-              Log in
+
+          <TextInput
+            style={styles.input}
+            placeholder="E-mail"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="#aaaaaa"
+            secureTextEntry
+            placeholder="Password"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="#aaaaaa"
+            secureTextEntry
+            placeholder="Confirm Password"
+            onChangeText={(text) => setConfirmPassword(text)}
+            value={confirmPassword}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <View style={styles.radioButton}>
+            <RadioButton
+              value="Passenger"
+              status={checked === "Passenger" ? "checked" : "unchecked"}
+              onPress={() => setChecked("Passenger")}
+              color="#ad462f"
+            />
+            <Text style={styles.radioText}>Passenger</Text>
+
+            <RadioButton
+              value="Driver"
+              status={checked === "Driver" ? "checked" : "unchecked"}
+              onPress={() => setChecked("Driver")}
+              color="#ad462f"
+            />
+            <Text style={styles.radioText}>Driver</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => onRegisterPress()}
+          >
+            <Text style={styles.buttonTitle}>Create account</Text>
+          </TouchableOpacity>
+          <View style={styles.footerView}>
+            <Text style={styles.footerText}>
+              Already got an account?{" "}
+              <Text onPress={onFooterLinkPress} style={styles.footerLink}>
+                Log in
+              </Text>
             </Text>
-          </Text>
-        </View>
-      </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
 }

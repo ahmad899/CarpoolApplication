@@ -12,13 +12,16 @@ import {
   TouchableWithoutFeedback,
   Button,
   Pressable,
+  ScrollView,
 } from "react-native";
-import { Input } from "react-native-elements";
-import { TextInput } from "react-native-gesture-handler";
-import Animated from "react-native-reanimated";
 import HomeScreenMap from "../../components/HomeScreenMap/HomeScreenMap";
 import style from "../LoginScreen/style";
-const HomeScreen = ({ navigation }) => {
+import { useNavigation, useRoute } from "@react-navigation/native";
+const HomeScreen = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const location = route.params.location;
+  const user = route.params.user;
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#ad462f" />
@@ -27,7 +30,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.input}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("PostRide");
+              navigation.navigate("PostRide", { location, user });
             }}
           >
             <Text style={styles.text}>Post Ride</Text>
@@ -36,7 +39,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.input}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("PostRide");
+              navigation.navigate("ViewRides", { user });
             }}
           >
             <Text style={styles.text}>View Rides</Text>

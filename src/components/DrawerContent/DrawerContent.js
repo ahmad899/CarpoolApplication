@@ -10,7 +10,6 @@ import {
 } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { Caption, Title } from "react-native-paper";
-
 import styles from "./styles";
 import {
   createDrawerNavigator,
@@ -20,20 +19,11 @@ import {
 } from "@react-navigation/drawer";
 import { Drawer } from "react-native-paper";
 import { auth, db } from "../../../firebaseConfig/firebaseConfig";
-
+import { useNavigation } from "@react-navigation/native";
 const DrawerContent = (props) => {
-  const [user, setUser] = useState([]);
-
-  const userId = auth.currentUser.uid;
-  useEffect(() => {
-    const unsubscribe = db
-      .collection("users")
-      .doc(userId)
-      .onSnapshot((documentSnapshot) => {
-        setUser(documentSnapshot.data());
-      });
-    return unsubscribe;
-  }, []);
+  const user = props.user;
+  const location = props.location;
+  const navigation = useNavigation();
 
   return (
     <View style={{ flex: 1, backgroundColor: "#ad462f" }}>
@@ -70,7 +60,7 @@ const DrawerContent = (props) => {
                 <Ionicons name="ios-home" size={24} color="#ad462f" />
               )}
               label={() => <Text style={styles.DrawerText}>Home</Text>}
-              onPress={() => props.navigation.navigate("Home")}
+              onPress={() => navigation.replace("Home")}
               style={styles.drawerItem}
             />
 
@@ -79,7 +69,7 @@ const DrawerContent = (props) => {
                 <FontAwesome name="car" size={24} color="#ad462f" />
               )}
               label={() => <Text style={styles.DrawerText}>My Ride</Text>}
-              onPress={() => props.navigation.navigate("Ride")}
+              onPress={() => navigation.navigate("MyRide")}
               style={styles.drawerItem}
             />
 
@@ -88,7 +78,9 @@ const DrawerContent = (props) => {
                 <MaterialCommunityIcons name="road" size={24} color="#ad462f" />
               )}
               label={() => <Text style={styles.DrawerText}>Post Ride</Text>}
-              onPress={() => props.navigation.navigate("PostRide")}
+              onPress={() =>
+                navigation.navigate("PostRide", { location, user })
+              }
               style={styles.drawerItem}
             />
 
@@ -97,7 +89,7 @@ const DrawerContent = (props) => {
                 <FontAwesome name="road" size={24} color="#ad462f" />
               )}
               label={() => <Text style={styles.DrawerText}>View Rides</Text>}
-              onPress={() => props.navigation.navigate("ViewRides")}
+              onPress={() => navigation.navigate("ViewRides", { user: user })}
               style={styles.drawerItem}
             />
 
@@ -106,7 +98,7 @@ const DrawerContent = (props) => {
                 <Fontisto name="history" size={24} color="#ad462f" />
               )}
               label={() => <Text style={styles.DrawerText}>History</Text>}
-              onPress={() => props.navigation.navigate("History")}
+              onPress={() => navigation.navigate("History")}
               style={styles.drawerItem}
             />
 
@@ -116,7 +108,7 @@ const DrawerContent = (props) => {
               )}
               label={() => <Text style={styles.DrawerText}>Settings</Text>}
               onPress={() =>
-                props.navigation.navigate("Settings", { userInfo: user })
+                navigation.navigate("Settings", { userInfo: user })
               }
               style={styles.drawerItem}
             />
@@ -129,9 +121,7 @@ const DrawerContent = (props) => {
             <Octicons name="sign-out" size={24} color="#ad462f" />
           )}
           label={() => <Text style={styles.DrawerText}>Log Out</Text>}
-          onPress={() =>
-            auth.signOut().then(() => props.navigation.replace("Login"))
-          }
+          onPress={() => auth.signOut().then(() => navigation.replace("Login"))}
           style={styles.drawerItem}
         />
       </Drawer.Section>

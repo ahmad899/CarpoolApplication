@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState, useEffect } from "react";
 import {
   Button,
   DevSettings,
@@ -19,15 +19,36 @@ import Settings from "../../src/screens/Settings/Settings";
 import { createStackNavigator } from "@react-navigation/stack";
 import { EvilIcons } from "@expo/vector-icons";
 import { DrawerActions } from "@react-navigation/native";
-import { auth } from "../../firebaseConfig/firebaseConfig";
+import { auth, db } from "../../firebaseConfig/firebaseConfig";
 import PostRideScreen from "../../src/screens/PostRideScreen/PostRideScreen";
 import HistoryRideScreen from "../../src/screens/HistoryRideScreen/HistoryRideScreen";
 import RideScreen from "../../src/screens/RideScreen/RideScreen";
 import DrawerContent from "../../src/components/DrawerContent/DrawerContent";
 import ViewRidesScreen from "../../src/screens/ViewRidesScreen/ViewRidesScreen";
+import MyRides from "../../src/screens/MyRides/MyRides";
+import LoadingSpinner from "../../src/components/LoadingSpinner";
+
 const Drawer = createDrawerNavigator();
 
-const HomeStackNavigator = ({ navigation }) => {
+const HomeStackNavigator = ({ navigation, route }) => {
+  const [user, setUser] = useState(null);
+  const userId = auth.currentUser.uid;
+
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("users")
+      .doc(userId)
+      .onSnapshot(
+        (documentSnapshot) => {
+          setUser(documentSnapshot.data());
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    return unsubscribe;
+  }, []);
+
   //changing header layout
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -46,17 +67,32 @@ const HomeStackNavigator = ({ navigation }) => {
     });
   }, [navigation]);
   //custom drawer content
-
-  return (
-    <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Ride" component={RideScreen} />
-      <Drawer.Screen name="PostRide" component={PostRideScreen} />
-      <Drawer.Screen name="History" component={HistoryRideScreen} />
-      <Drawer.Screen name="Settings" component={Settings} />
-      <Drawer.Screen name="ViewRides" component={ViewRidesScreen} />
-    </Drawer.Navigator>
-  );
+  if (user === null) return <LoadingSpinner />;
+  else
+    return (
+      <Drawer.Navigator
+        initialRouteName={"Home"}
+        drawerContent={(props) => (
+          <DrawerContent
+            {...props}
+            location={route.params.location}
+            user={user}
+          />
+        )}
+      >
+        <Drawer.Screen
+          name="Home"
+          component={HomeScreen}
+          initialParams={{ location: route.params.location, user: user }}
+        />
+        <Drawer.Screen name="Ride" component={RideScreen} />
+        <Drawer.Screen name="PostRide" component={PostRideScreen} />
+        <Drawer.Screen name="History" component={HistoryRideScreen} />
+        <Drawer.Screen name="Settings" component={Settings} />
+        <Drawer.Screen name="ViewRides" component={ViewRidesScreen} />
+        <Drawer.Screen name="MyRide" component={MyRides} />
+      </Drawer.Navigator>
+    );
 };
 
 export default HomeStackNavigator;

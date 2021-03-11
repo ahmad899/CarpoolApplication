@@ -1,2 +1,1 @@
-const placesApi = "AIzaSyCUQoLbBsZz1WWOIQKro8Kx8rzZuZyRPyo";
-export default placesApi;
+export const placesApi = "AIzaSyDCip0X6KBOArMJiWQ1uVEQbCxon_9Xwgs";

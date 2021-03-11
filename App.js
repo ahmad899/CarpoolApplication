@@ -1,48 +1,28 @@
-import React from "react";
 import { View, Text } from "react-native";
-import LoginScreen from "./src/screens/LoginScreen/LoginScreen";
-import RegistrationScreen from "./src/screens/RegistrationScreen/RegistrationScreen";
-import HomeScreen from "./src/screens/HomeScreen/HomeScreen.js";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import HomeStackNavigator from "./navigation/HomeStackNavigator/HomeStackNavigator";
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { EvilIcons } from "@expo/vector-icons";
-import Profile from "./src/screens/Profile/Profile";
-
-const Stack = createStackNavigator();
-
+import React, { useEffect, useState } from "react";
+import * as Location from "expo-location";
+import Router from "./navigation/Root/Root";
+import LoadingSpinner from "./src/components/LoadingSpinner";
 const App = () => {
-  //changing header style for all screen
-  const globalScreenOptions = {
-    headerStyle: { backgroundColor: "#ad462f", height: 50 },
-    headerTitleStyle: {
-      color: "white",
-    },
-    headerTitleAlign: "center",
-    headerTintColor: "white",
-  };
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
-  return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Login"
-        screenOptions={globalScreenOptions}
-      >
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="SignUp" component={RegistrationScreen} />
-        <Stack.Screen
-          name="Home"
-          component={HomeStackNavigator}
-          options={({ navigation, route }) => ({
-            headerTitle: getFocusedRouteNameFromRoute(route),
-          })}
-        />
-        <Stack.Screen name="Profile" component={Profile} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        alert(errorMsg);
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+
+  if (location === null) return <LoadingSpinner />;
+  else return <Router location={location} />;
 };
 
 export default App;

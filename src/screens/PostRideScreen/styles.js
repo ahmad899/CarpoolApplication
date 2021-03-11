@@ -4,21 +4,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  map: { height: "56%" },
+  map: { height: "60%" },
   formContainer: {
     position: "absolute",
     width: "100%",
     bottom: 0,
-    height: "50%",
+    height: "45%",
     backgroundColor: "#ad462f",
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
-    marginBottom: -10,
   },
 
   inputContainer: {
-    top: 0,
-    position: "absolute",
     margin: 10,
   },
   rowContainer: {
@@ -32,7 +29,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: "white",
   },
-
+  autoCompleteContainer: {
+    width: "90%",
+  },
   textInput: {
     marginLeft: 5,
     fontSize: 15,

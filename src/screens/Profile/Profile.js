@@ -16,7 +16,7 @@ import styles from "./styles";
 import { Button } from "react-native";
 import Dialog from "react-native-dialog";
 import * as firebase from "firebase";
-import LoadingSpinner from "../../components/loadingSpinner";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const Profile = ({ navigation, route }) => {
   const user = route.params.userInfo;
@@ -26,6 +26,7 @@ const Profile = ({ navigation, route }) => {
   const [password, setPassword] = useState(user.password);
   const [loading, setLoading] = useState(false);
   const [userType, setUserType] = useState(user.userType);
+  const [driverInfo, setDriverInfo] = useState(user.driverInfo);
   const [userCurrentPass, setUserCurrentPass] = useState("");
   const [passVisible, setPassVisible] = useState(false);
   const [emailVisible, setemailVisible] = useState(false);
@@ -86,7 +87,6 @@ const Profile = ({ navigation, route }) => {
 
   const onChangeEmail = () => {
     setLoading(true);
-    console.log(userCurrentPass);
     reauthenticate(userCurrentPass)
       .then(() => {
         const user = auth.currentUser;
@@ -116,20 +116,47 @@ const Profile = ({ navigation, route }) => {
     else {
       setLoading(true);
       const userId = auth.currentUser.uid;
-      db.collection("users")
-        .doc(userId)
-        .update({
-          firstName: firstName,
-          secondName: secondName,
-          email: email,
-          password: password,
-        })
-        .then(() => {
-          setLoading(false);
-          alert("User Information Saved");
-        });
+      if (driverInfo) {
+        db.collection("users")
+          .doc(userId)
+          .update({
+            firstName: firstName,
+            secondName: secondName,
+            email: email,
+            driverInfo: driverInfo,
+          })
+          .then(() => {
+            setLoading(false);
+            alert("User Information Saved");
+          });
+      } else {
+        db.collection("users")
+          .doc(userId)
+          .update({
+            firstName: firstName,
+            secondName: secondName,
+            email: email,
+          })
+          .then(() => {
+            setLoading(false);
+            alert("User Information Saved");
+          });
+      }
     }
   };
+
+  const onSaveDriverInfo = (val) => {
+    setDriverInfo(val);
+    onSave();
+  };
+
+  const onEditDriverInfo = () => {
+    navigation.navigate("EditDriverInfo", {
+      userDriverInfo: driverInfo,
+      onSaveDriverInfo,
+    });
+  };
+
   if (loading) return <LoadingSpinner />;
   else
     return (
@@ -217,6 +244,7 @@ const Profile = ({ navigation, route }) => {
               {userType === "Driver" ? (
                 <TouchableOpacity
                   style={[styles.textInput, { justifyContent: "center" }]}
+                  onPress={onEditDriverInfo}
                 >
                   <Text style={styles.label}>Edit Driver Information</Text>
                 </TouchableOpacity>

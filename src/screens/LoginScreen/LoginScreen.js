@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import styles from "./style";
 import { auth } from "../../../firebaseConfig/firebaseConfig";
-import LoadingSpinner from "../../components/loadingSpinner";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
