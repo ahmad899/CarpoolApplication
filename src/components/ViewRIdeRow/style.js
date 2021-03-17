@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft: 4,
     fontSize: 15,
+    width: 150,
   },
   bottomtext: {
     color: "black",

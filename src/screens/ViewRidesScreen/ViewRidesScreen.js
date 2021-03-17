@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { auth, db } from "../../../firebaseConfig/firebaseConfig";
 import ViewRideRow from "../../components/ViewRIdeRow/ViewRideRow";
 import styles from "./styles";
 import { SafeAreaView, ScrollView } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import LoadingSpinner from "../../components/LoadingSpinner";
 const ViewRidesScreen = () => {
   const navigation = useNavigation();
@@ -18,15 +17,14 @@ const ViewRidesScreen = () => {
   const [driverTextColor, setDriverTextColor] = useState("black");
   const [driverBackGroundColor, setDriverBackGroundColor] = useState("white");
   const [loading, setLoading] = useState(true);
-  const [userType, setUserType] = useState(route.params.user.userType);
+  const [userType, setUserType] = useState("Passenger");
+  const [passengerButton, setPassengerButton] = useState(true);
+  const [DriverButton, setDriverButton] = useState(false);
+
   useEffect(() => {
     const unsubscribe = db
       .collection("rides")
-      .where(
-        "userType",
-        "!=",
-        `${userType == "Passenger" ? "Driver" : "Passenger"}`
-      )
+      .where("userType", "==", `${userType}`)
       .onSnapshot((snapshot) => {
         setRides(
           snapshot.docs.map((doc) => ({
@@ -44,6 +42,8 @@ const ViewRidesScreen = () => {
     setPassengerBackGroundColor("#ad462f");
     setDriverTextColor("black");
     setDriverBackGroundColor("white");
+    setDriverButton(false);
+    setPassengerButton(true);
     setLoading(true);
   };
   const changeDriverColor = () => {
@@ -51,6 +51,8 @@ const ViewRidesScreen = () => {
     setDriverBackGroundColor("#ad462f");
     setPassengerTextColor("black");
     setPassengerBackGroundColor("white");
+    setPassengerButton(false);
+    setDriverButton(true);
     setLoading(true);
   };
 
@@ -67,6 +69,7 @@ const ViewRidesScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.TypeContainer}>
         <TouchableOpacity
+          disabled={passengerButton}
           style={[
             styles.buttonContainer,
             { backgroundColor: passengerBackGroundColor },
@@ -78,6 +81,7 @@ const ViewRidesScreen = () => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
+          disabled={DriverButton}
           style={[
             styles.buttonContainer,
             { backgroundColor: driverBackGroundColor },

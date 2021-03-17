@@ -6,8 +6,11 @@ import { useNavigation } from "@react-navigation/native";
 import { EvilIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
-
+import { useRoute } from "@react-navigation/native";
 const ViewRideRow = ({ data, id }) => {
+  const route = useRoute();
+  const currentUserType = route.params.user.userType;
+  const userName = route.params.user.firstName;
   const navigation = useNavigation();
   const rideInfo = data.rideInfo;
   const userInfo = data.rideInfo.user;
@@ -18,7 +21,7 @@ const ViewRideRow = ({ data, id }) => {
   const time = fireBaseTime.toLocaleTimeString();
 
   const onBookRide = () => {
-    navigation.push("BookRide", { data });
+    navigation.push("BookRide", { data, currentUserType, userName });
   };
   return (
     <TouchableOpacity style={styles.container} onPress={onBookRide}>

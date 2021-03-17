@@ -42,22 +42,28 @@ const PostRideScreen = () => {
     const user = auth.currentUser;
     await db
       .collection("rides")
-      .add({
-        rideInfo: {
-          originPlace: originPlace.details.geometry.location,
-          destinationPlace: destinationPlace.details.geometry.location,
-          originName: originPlace.details.name,
-          destinationName: destinationPlace.details.name,
-          date: date,
-          distance: distance,
-          duration: duration,
-          user: route.params.user,
-        },
-        userType: route.params.user.userType,
-        userId: user.uid,
+      .add({})
+      .then((doc) => {
+        db.collection("rides")
+          .doc(doc.id)
+          .set({
+            rideInfo: {
+              originPlace: originPlace.details.geometry.location,
+              destinationPlace: destinationPlace.details.geometry.location,
+              originName: originPlace.details.name,
+              destinationName: destinationPlace.details.name,
+              date: date,
+              distance: distance,
+              duration: duration,
+              user: route.params.user,
+            },
+            userType: route.params.user.userType,
+            userId: user.uid,
+            rideId: doc.id,
+          });
+        navigation.navigate("MyRide");
       })
-      .then(() => navigation.navigate("MyRide"))
-      .catch((er) => console.warn("error"));
+      .catch((er) => console.log(er));
   };
 
   const onChange = (event, selectedDate) => {

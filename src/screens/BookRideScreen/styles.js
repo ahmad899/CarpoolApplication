@@ -6,20 +6,31 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   map: {},
+  subMainContainer: {
+    backgroundColor: "#ad462f",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+  },
   rideInfoContainer: {
     flexDirection: "row",
-    backgroundColor: "#ad462f",
-    height: 300,
+
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     justifyContent: "space-around",
   },
   topContainer: {
     marginVertical: 10,
+    marginLeft: 10,
   },
   bottomContainer: { marginVertical: 10 },
 
-  text: { marginLeft: 7, color: "white", fontWeight: "bold", fontSize: 16 },
+  text: {
+    marginLeft: 7,
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
+    width: 180,
+  },
   bottomtext: {
     color: "white",
     fontWeight: "bold",
