@@ -31,6 +31,12 @@ const Profile = ({ navigation, route }) => {
   const [passVisible, setPassVisible] = useState(false);
   const [emailVisible, setemailVisible] = useState(false);
 
+  useEffect(() => {
+    if (route.params.driverInfo) {
+      setDriverInfo(route.params.driverInfo);
+    }
+  }, [route.params]);
+
   const showPassDialog = () => {
     setPassVisible(true);
   };
@@ -145,15 +151,10 @@ const Profile = ({ navigation, route }) => {
     }
   };
 
-  const onSaveDriverInfo = (val) => {
-    setDriverInfo(val);
-    onSave();
-  };
-
   const onEditDriverInfo = () => {
     navigation.navigate("EditDriverInfo", {
       userDriverInfo: driverInfo,
-      onSaveDriverInfo,
+      onSave,
     });
   };
 

@@ -75,6 +75,15 @@ const DrawerContent = (props) => {
 
             <DrawerItem
               icon={({ color, size }) => (
+                <Ionicons name="notifications" size={24} color="#ad462f" />
+              )}
+              label={() => <Text style={styles.DrawerText}>Notifications</Text>}
+              onPress={() => navigation.navigate("Notification")}
+              style={styles.drawerItem}
+            />
+
+            <DrawerItem
+              icon={({ color, size }) => (
                 <MaterialCommunityIcons name="road" size={24} color="#ad462f" />
               )}
               label={() => <Text style={styles.DrawerText}>Post Ride</Text>}

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import styles from "./styles";
-import { useRoute, useNavigation } from "@react-navigation/native";
+import {
+  useRoute,
+  useNavigation,
+  CommonActions,
+} from "@react-navigation/native";
 import { SafeAreaView } from "react-native";
 import {
   KeyboardAvoidingView,
@@ -13,10 +17,16 @@ const EditDriverInfo = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const [driverInfo, setDriverInfo] = useState(route.params.userDriverInfo);
-  const onSaveDriverInfo = route.params.onSaveDriverInfo;
+
   const onSave = () => {
-    onSaveDriverInfo(driverInfo);
-    navigation.goBack();
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: "Profile",
+        params: {
+          driverInfo: driverInfo,
+        },
+      })
+    );
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -79,7 +89,7 @@ const EditDriverInfo = () => {
           onPress={onSave}
         >
           <View style={styles.button}>
-            <Text style={styles.buttonTitle}>Save</Text>
+            <Text style={styles.buttonTitle}>Go Back and Click Save</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>

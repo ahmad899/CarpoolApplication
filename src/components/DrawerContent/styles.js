@@ -11,9 +11,6 @@ const styles = StyleSheet.create({
   drawerItem: {
     backgroundColor: "white",
     borderRadius: 50,
-
-    borderWidth: 2,
-    borderColor: "black",
     marginVertical: 7,
   },
   DrawerText: {

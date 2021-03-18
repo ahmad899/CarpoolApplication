@@ -54,7 +54,9 @@ const BookRideScreen = () => {
           userId: rideInfo.user.userId,
           userRequestingId: userId,
           userRequestingName: userName,
-          accept: false,
+          showHomeScreen: true,
+          showNotification: true,
+          accept: "pending",
           requestType: "booking",
         })
         .then((res) => {
@@ -76,7 +78,9 @@ const BookRideScreen = () => {
           userRequestingId: userId,
           isBooked: true,
           userId: rideInfo.user.userId,
-          accept: false,
+          showHomeScreen: true,
+          showNotification: true,
+          accept: "pending",
           requestType: "offering",
         })
         .then((res) => {

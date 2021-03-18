@@ -32,7 +32,7 @@ const HomeScreen = () => {
     const unsubscribe = db
       .collectionGroup("userRide")
       .where("userId", "==", `${userId}`)
-      .where("accept", "==", false)
+      .where("showHomeScreen", "==", true)
       .onSnapshot((snapshot) => {
         setRides(
           snapshot.docs.map((doc) => ({
