@@ -11,6 +11,7 @@ import { EvilIcons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import EditDriverInfo from "../../src/screens/EditDriverInfo/EditDriverInfo";
 import BookRideScreen from "../../src/screens/BookRideScreen/BookRideScreen";
+import RideChatScreen from "../../src/screens/RideChatScreen/RideChatScreen";
 const Stack = createStackNavigator();
 
 const Root = ({ location }) => {
@@ -43,6 +44,7 @@ const Root = ({ location }) => {
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="EditDriverInfo" component={EditDriverInfo} />
         <Stack.Screen name="BookRide" component={BookRideScreen} />
+        <Stack.Screen name="RideChatScreen" component={RideChatScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

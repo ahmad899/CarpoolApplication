@@ -20,6 +20,7 @@ import {
 import { Drawer } from "react-native-paper";
 import { auth, db } from "../../../firebaseConfig/firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
+import { Entypo } from "@expo/vector-icons";
 const DrawerContent = (props) => {
   const user = props.user;
   const location = props.location;
@@ -111,6 +112,27 @@ const DrawerContent = (props) => {
               style={styles.drawerItem}
             />
 
+            <DrawerItem
+              icon={({ color, size }) => (
+                <AntDesign name="profile" size={24} color="#ad462f" />
+              )}
+              label={() => <Text style={styles.DrawerText}>View Profiles</Text>}
+              onPress={() =>
+                navigation.navigate("Settings", { userInfo: user })
+              }
+              style={styles.drawerItem}
+            />
+
+            <DrawerItem
+              icon={({ color, size }) => (
+                <Entypo name="chat" size={24} color="#ad462f" />
+              )}
+              label={() => <Text style={styles.DrawerText}>Chat</Text>}
+              onPress={() =>
+                navigation.navigate("ChatsScreen", { userInfo: user })
+              }
+              style={styles.drawerItem}
+            />
             <DrawerItem
               icon={({ color, size }) => (
                 <Ionicons name="ios-settings" size={24} color="#ad462f" />

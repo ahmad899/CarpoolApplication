@@ -23,6 +23,8 @@ export default function LoginScreen({ navigation }) {
       if (authUser) {
         navigation.replace("Home");
         setLoading(true);
+      } else {
+        setLoading(false);
       }
     });
     return unsubscribe;

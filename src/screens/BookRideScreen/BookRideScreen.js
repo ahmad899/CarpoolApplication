@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { Text, View } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import BookRideMap from "../../components/BookRideMap/BookRideMap";
@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { auth, db } from "../../../firebaseConfig/firebaseConfig";
+import { Ionicons } from "@expo/vector-icons";
 
 const BookRideScreen = () => {
   const route = useRoute();
@@ -26,6 +27,7 @@ const BookRideScreen = () => {
   const [isBooked, setIsBooked] = useState(false);
   const [replace, setreplace] = useState();
   const rideId = route.params.data.rideId;
+  const chatid = userId + userInfo.userId;
 
   useEffect(() => {
     db.collection("requestRides")
@@ -41,7 +43,42 @@ const BookRideScreen = () => {
       .catch(() => setIsBooked(false));
   }, [replace]);
 
-  console.log(isBooked);
+  const createChat = async () => {
+    await db
+      .collection("chats")
+      .doc(chatid)
+      /*   .collection("users")
+      .doc(userId) */
+      .set({
+        chatSenderName: auth.currentUser.displayName,
+        chatReciveName: userInfo.firstName,
+        userRecivingId: userId,
+        userSendingId: userInfo.userId,
+      })
+      .then((res) => navigation.navigate("RideChatScreen", { id: chatid }))
+      .catch((er) => alert(er));
+  };
+
+  useLayoutEffect(() => {
+    const unsubscribe = navigation.setOptions({
+      headerRight: () =>
+        userInfo.userId === userId ? (
+          <View></View>
+        ) : (
+          <TouchableOpacity onPress={createChat}>
+            <Ionicons
+              name="chatbubble-ellipses-outline"
+              size={28}
+              color="white"
+              style={{ marginRight: 10 }}
+            />
+          </TouchableOpacity>
+        ),
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
   const onRequestRide = () => {
     if (!isBooked)
       db.collection("requestRides")

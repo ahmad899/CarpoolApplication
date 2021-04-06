@@ -3,7 +3,7 @@ import React from "react";
 import { ActivityIndicator, StyleSheet } from "react-native";
 import { View } from "react-native";
 
-const loadingSpinner = (props) => (
+const LoadingSpinner = (props) => (
   <View style={[styles.container, styles.horizontal]}>
     <ActivityIndicator size="large" color={props.color || "#ad462f"} />
   </View>
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default loadingSpinner;
+export default LoadingSpinner;
