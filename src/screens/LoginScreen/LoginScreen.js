@@ -16,27 +16,39 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   //handle if the user is logged in before or not
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        navigation.replace("Home");
-        setLoading(true);
-      } else {
-        setLoading(false);
+        if (authUser.emailVerified) {
+          navigation.replace("Home");
+          setLoading(true);
+        } else {
+          setLoading(false);
+        }
       }
     });
     return unsubscribe;
   }, []);
 
   //login process
-  const onLoginPress = () => {
+  const onLoginPress = async () => {
     setLoading(true);
-    auth.signInWithEmailAndPassword(email, password).catch((error) => {
-      alert("credential error");
-      setLoading(false);
-    });
+    await auth
+      .signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        if (!user.emailVerified) {
+          setLoading(false);
+        } else {
+          setLoading(false);
+          alert("Go to your email to verify");
+        }
+      })
+      .catch((error) => {
+        alert("credential error");
+        setLoading(false);
+      });
   };
 
   const onFooterLinkPress = () => {

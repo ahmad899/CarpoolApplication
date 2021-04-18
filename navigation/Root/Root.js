@@ -12,6 +12,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import EditDriverInfo from "../../src/screens/EditDriverInfo/EditDriverInfo";
 import BookRideScreen from "../../src/screens/BookRideScreen/BookRideScreen";
 import RideChatScreen from "../../src/screens/RideChatScreen/RideChatScreen";
+import EditMyRideScreen from "../../src/screens/EditMyRideScreen/EditMyRideScreen";
+import UserProfileScreen from "../../src/screens/UserProfileScreen/UserProfileScreen";
+import ConfirmScreen from "../../src/screens/ConfirmScreen/ConfirmScreen";
 const Stack = createStackNavigator();
 
 const Root = ({ location }) => {
@@ -33,6 +36,8 @@ const Root = ({ location }) => {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignUp" component={RegistrationScreen} />
         <Stack.Screen name="Driver" component={DriverInfoScreen} />
+        <Stack.Screen name="ConfirmScreen" component={ConfirmScreen} />
+
         <Stack.Screen
           name="Home"
           component={HomeStackNavigator}
@@ -45,6 +50,8 @@ const Root = ({ location }) => {
         <Stack.Screen name="EditDriverInfo" component={EditDriverInfo} />
         <Stack.Screen name="BookRide" component={BookRideScreen} />
         <Stack.Screen name="RideChatScreen" component={RideChatScreen} />
+        <Stack.Screen name="EditMyRideScreen" component={EditMyRideScreen} />
+        <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

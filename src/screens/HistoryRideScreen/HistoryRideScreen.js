@@ -9,31 +9,40 @@ const HistoryRideScreen = () => {
   const userId = auth.currentUser.uid;
   const [rides, setRides] = useState([]);
   const [loading, setLoading] = useState(true);
+  console.log(userId);
+  const ride = db.collection("requestRides").doc(userId).collection("userRide");
+
+  const getUserRide = async () => {
+    const recivingId = ride.where("userId", "==", userId).get();
+    const sendingId = ride.where("userRequestingId", "==", userId).get();
+    const [recQueryId, sendQueryId] = await Promise.all([
+      recivingId,
+      sendingId,
+    ]);
+    const recId = recQueryId.docs;
+    const sendId = sendQueryId.docs;
+    const rideArr = recId.concat(sendId);
+    return rideArr;
+  };
 
   useEffect(() => {
-    const unsubscribe = db
-      .collection("requestRides")
-      .doc(userId)
-      .collection("userRide")
-      .onSnapshot((snapshot) => {
+    const unsubscribe = async () =>
+      await getUserRide().then((result) => {
         setRides(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
+          result.map((snapshot) => ({
+            id: snapshot.id,
+            data: snapshot.data(),
           }))
         );
         setLoading(false);
-        /*         snapshot.docs.map((doc) => console.log(doc.data()));
-         */
       });
-
+    unsubscribe();
     return unsubscribe;
   }, []);
-  console.log(rides);
-  if (loading) return <LoadingSpinner />;
+  if (loading) return <LoadingSpinner color="red" />;
   else
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <ScrollView>
           <View style={styles.row}>
             {rides.map((data) => (

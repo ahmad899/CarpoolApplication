@@ -38,7 +38,12 @@ const MyRides = () => {
         <ScrollView>
           <View style={styles.row}>
             {rides.map(({ id, data }) => (
-              <RideRow key={id} id={id} data={data} />
+              <RideRow
+                key={id}
+                id={id}
+                data={data}
+                location={route.params.location}
+              />
             ))}
           </View>
         </ScrollView>

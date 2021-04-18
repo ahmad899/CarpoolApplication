@@ -58,7 +58,7 @@ const DriverInfoScreen = ({ navigation, route }) => {
       })
       .then(() => {
         setLoading(false);
-        navigation.replace("Home");
+        navigation.replace("ConfirmScreen");
       })
       .catch((err) => {
         setLoading(false);

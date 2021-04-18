@@ -14,34 +14,53 @@ export default function RegistrationScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState("Passenger");
 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
-  const onRegisterPress = () => {
+  const onRegisterPress = async () => {
     setLoading(true);
     if (password !== confirmPassword) {
       alert("Passwords don't match.");
       setLoading(false);
       return;
     }
-    auth
+    await auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
         authUser.user.updateProfile({
           displayName: name,
           photoURL:
             "https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png",
+          phoneNumber: phoneNumber,
         });
       })
+      .then((authUser) => {
+        if (authUser) {
+          db.collection("users").doc(authUser.uid).set({
+            firstName: name,
+            secondName: SecondName,
+            email: email,
+            userType: checked,
+            userId: authUser.uid,
+            phone: phoneNumber,
+          });
+        }
+      })
       .catch((error) => {
-        alert(error.message);
+         alert(error.message);
         setLoading(false);
       });
-    auth.onAuthStateChanged((authUser) => {
+
+    await auth.onAuthStateChanged((authUser) => {
+      console.log(authUser);
       if (authUser) {
+        if (!authUser.emailVerified) {
+          authUser.sendEmailVerification();
+        }
         db.collection("users")
           .doc(authUser.uid)
           .set({
@@ -50,14 +69,14 @@ export default function RegistrationScreen({ navigation }) {
             email: email,
             userType: checked,
             userId: authUser.uid,
+            phone: phoneNumber,
           })
-
-          .then(
+          .then(() =>
             checked === "Driver"
               ? navigation.push("Driver", {
                   userId: authUser.uid,
                 })
-              : navigation.replace("Home")
+              : navigation.replace("ConfirmScreen")
           )
           .catch((error) => alert("Error"));
       }
@@ -75,7 +94,7 @@ export default function RegistrationScreen({ navigation }) {
           style={styles.logo}
           source={require("../../../assets/logIn.jpg")}
         />
-        <ScrollView>
+        <ScrollView style={styles.inputContainer}>
           <TextInput
             style={styles.input}
             placeholder="First Name"
@@ -104,6 +123,16 @@ export default function RegistrationScreen({ navigation }) {
             value={email}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Phone"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setPhoneNumber(text)}
+            value={phoneNumber}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            keyboardType="number-pad"
           />
           <TextInput
             style={styles.input}

@@ -4,16 +4,27 @@ import { Text, View, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-const RideRow = ({ id, data }) => {
+const RideRow = ({ id, data, location }) => {
   const fireBaseTime = new Date(
     data.date.seconds * 1000 + data.date.nanoseconds / 1000000
   );
   const date = fireBaseTime.toDateString();
   const time = fireBaseTime.toLocaleTimeString();
-
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity key={id} style={styles.row}>
+    <TouchableOpacity
+      key={id}
+      style={styles.row}
+      onPress={() =>
+        navigation.navigate("EditMyRideScreen", {
+          id: id,
+          data: data,
+          location: location,
+        })
+      }
+    >
       <View style={styles.fromToLocation}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <MaterialCommunityIcons

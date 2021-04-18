@@ -6,12 +6,15 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   title: {},
+  inputContainer: {
+    marginBottom: 20,
+  },
   logo: {
     height: 130,
     width: "100%",
     alignSelf: "center",
     borderRadius: 999,
-    margin: 50,
+    margin: 30,
     marginTop: 20,
   },
   input: {

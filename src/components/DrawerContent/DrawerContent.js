@@ -70,7 +70,7 @@ const DrawerContent = (props) => {
                 <FontAwesome name="car" size={24} color="#ad462f" />
               )}
               label={() => <Text style={styles.DrawerText}>My Ride</Text>}
-              onPress={() => navigation.navigate("MyRide")}
+              onPress={() => navigation.navigate("MyRide", { location })}
               style={styles.drawerItem}
             />
 
@@ -108,7 +108,7 @@ const DrawerContent = (props) => {
                 <Fontisto name="history" size={24} color="#ad462f" />
               )}
               label={() => <Text style={styles.DrawerText}>History</Text>}
-              onPress={() => navigation.navigate("History")}
+              onPress={() => navigation.navigate("History", { user: user })}
               style={styles.drawerItem}
             />
 
@@ -118,7 +118,7 @@ const DrawerContent = (props) => {
               )}
               label={() => <Text style={styles.DrawerText}>View Profiles</Text>}
               onPress={() =>
-                navigation.navigate("Settings", { userInfo: user })
+                navigation.navigate("ViewProfile", { userInfo: user })
               }
               style={styles.drawerItem}
             />

@@ -29,6 +29,7 @@ import MyRides from "../../src/screens/MyRides/MyRides";
 import LoadingSpinner from "../../src/components/LoadingSpinner";
 import NotificationScreen from "../../src/screens/NotificationScreen/NotificationScreen";
 import ChatsScreen from "../../src/screens/ChatsScreen/ChatsScreen";
+import ViewProfileScreen from "../../src/screens/ViewProfileScreen/ViewProfileScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -95,6 +96,7 @@ const HomeStackNavigator = ({ navigation, route }) => {
         <Drawer.Screen name="MyRide" component={MyRides} />
         <Drawer.Screen name="Notification" component={NotificationScreen} />
         <Drawer.Screen name="ChatsScreen" component={ChatsScreen} />
+        <Drawer.Screen name="ViewProfile" component={ViewProfileScreen} />
        
       </Drawer.Navigator>
     );
