@@ -51,7 +51,6 @@ const EditMyRideScreen = () => {
   );
   const userDate = fireBaseTime.toDateString();
   const time = fireBaseTime.toLocaleTimeString();
-  console.log(route);
   useLayoutEffect(() => {
     if (originPlace === initialState && destinationPlace === initialState) {
       setBtnDisable(true);

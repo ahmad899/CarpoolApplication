@@ -17,29 +17,18 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  //handle if the user is logged in before or not
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        if (authUser.emailVerified) {
-          navigation.replace("Home");
-          setLoading(true);
-        } else {
-          setLoading(false);
-        }
-      }
-    });
-    return unsubscribe;
-  }, []);
+
 
   //login process
   const onLoginPress = async () => {
     setLoading(true);
     await auth
       .signInWithEmailAndPassword(email, password)
-      .then((user) => {
-        if (!user.emailVerified) {
+      .then((authUser) => {
+        console.log(authUser.user.emailVerified);
+        if (authUser.user.emailVerified) {
           setLoading(false);
+          navigation.replace("Home");
         } else {
           setLoading(false);
           alert("Go to your email to verify");

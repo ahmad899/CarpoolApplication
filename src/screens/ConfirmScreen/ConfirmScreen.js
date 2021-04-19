@@ -14,7 +14,7 @@ const ConfirmScreen = () => {
         style={styles.button}
         onPress={() => navigation.replace("Login")}
       >
-        <Text>Go to LogIn</Text>
+        <Text style={styles.buttonTitle}>Go to LogIn</Text>
       </TouchableOpacity>
     </View>
   );
@@ -24,4 +24,20 @@ export default ConfirmScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1, alignItems: "center", justifyContent: "center" },
+  button: {
+    backgroundColor: "#ad462f",
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 60,
+  },
+  buttonTitle: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
 });

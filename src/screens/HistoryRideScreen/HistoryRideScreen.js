@@ -9,7 +9,6 @@ const HistoryRideScreen = () => {
   const userId = auth.currentUser.uid;
   const [rides, setRides] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log(userId);
   const ride = db.collection("requestRides").doc(userId).collection("userRide");
 
   const getUserRide = async () => {

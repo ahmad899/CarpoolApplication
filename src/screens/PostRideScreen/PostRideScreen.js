@@ -38,6 +38,7 @@ const PostRideScreen = () => {
   const [duration, setDuration] = useState(0);
   const navigation = useNavigation();
   const route = useRoute();
+
   const onPostRide = async () => {
     const user = auth.currentUser;
     await db
@@ -61,7 +62,7 @@ const PostRideScreen = () => {
             userId: user.uid,
             rideId: doc.id,
           });
-        navigation.navigate("MyRide");
+        navigation.navigate("MyRide", { location: route.params.location });
       })
       .catch((er) => console.log(er));
   };

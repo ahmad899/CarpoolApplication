@@ -21,8 +21,8 @@ const DriverInfoScreen = ({ navigation, route }) => {
   const [carType, setCarType] = useState("");
   const [carModel, setCarModel] = useState("");
   const [carPlateNumber, setCarPlateNumber] = useState("");
-  const [loading, setLoading] = useState(false);
 
+  
   const AddDriverInfo = () => {
     if (!driverLicense.trim()) {
       alert("Enter Driver License");
@@ -56,77 +56,70 @@ const DriverInfoScreen = ({ navigation, route }) => {
           carPlateNumber,
         },
       })
-      .then(() => {
-        setLoading(false);
-        navigation.replace("ConfirmScreen");
-      })
+      .then( 
+        navigation.replace("ConfirmScreen")
+      )
       .catch((err) => {
-        setLoading(false);
         alert("falied");
       });
   };
 
-  if (loading) return <LoadingSpinner />;
-  else
-    return (
-      <KeyboardAvoidingView
-        style={styles.container}
-        style={{ flex: 1, width: "100%" }}
-      >
-        <Image
-          style={styles.logo}
-          source={require("../../../assets/logIn.jpg")}
+  return (
+    <KeyboardAvoidingView
+      style={styles.container}
+      style={{ flex: 1, width: "100%" }}
+    >
+      <Image
+        style={styles.logo}
+        source={require("../../../assets/logIn.jpg")}
+      />
+
+      <ScrollView>
+        <TextInput
+          style={styles.input}
+          placeholder="Driver license"
+          keyboardType="numeric"
+          value={driverLicense}
+          onChangeText={(text) => setDriverLicense(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="User ID"
+          keyboardType="numeric"
+          value={userIdentificationNum}
+          onChangeText={(text) => setUserIdentificationNum(text)}
         />
 
-        <ScrollView>
-          <TextInput
-            style={styles.input}
-            placeholder="Driver license"
-            keyboardType="numeric"
-            value={driverLicense}
-            onChangeText={(text) => setDriverLicense(text)}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="User ID"
-            keyboardType="numeric"
-            value={userIdentificationNum}
-            onChangeText={(text) => setUserIdentificationNum(text)}
-          />
+        <TextInput
+          style={styles.input}
+          placeholder="Car Type"
+          placeholderTextColor="#aaaaaa"
+          value={carType}
+          onChangeText={(text) => setCarType(text)}
+        />
 
-          <TextInput
-            style={styles.input}
-            placeholder="Car Type"
-            placeholderTextColor="#aaaaaa"
-            value={carType}
-            onChangeText={(text) => setCarType(text)}
-          />
+        <TextInput
+          style={styles.input}
+          placeholder="Car Model"
+          keyboardType="numeric"
+          value={carModel}
+          onChangeText={(text) => setCarModel(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="#aaaaaa"
+          placeholder="Car Plate Number"
+          keyboardType="numeric"
+          value={carPlateNumber}
+          onChangeText={(text) => setCarPlateNumber(text)}
+        />
 
-          <TextInput
-            style={styles.input}
-            placeholder="Car Model"
-            keyboardType="numeric"
-            value={carModel}
-            onChangeText={(text) => setCarModel(text)}
-          />
-          <TextInput
-            style={styles.input}
-            placeholderTextColor="#aaaaaa"
-            placeholder="Car Plate Number"
-            keyboardType="numeric"
-            value={carPlateNumber}
-            onChangeText={(text) => setCarPlateNumber(text)}
-          />
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => AddDriverInfo()}
-          >
-            <Text style={styles.buttonTitle}>Add Driver Info</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    );
+        <TouchableOpacity style={styles.button} onPress={() => AddDriverInfo()}>
+          <Text style={styles.buttonTitle}>Add Driver Info</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
 };
 
 export default DriverInfoScreen;

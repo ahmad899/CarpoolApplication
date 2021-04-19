@@ -21,66 +21,47 @@ export default function RegistrationScreen({ navigation }) {
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
-  const onRegisterPress = async () => {
-    setLoading(true);
+  const onRegisterPress = () => {
+    setLoading(false);
     if (password !== confirmPassword) {
       alert("Passwords don't match.");
       setLoading(false);
       return;
     }
-    await auth
+    auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
         authUser.user.updateProfile({
           displayName: name,
+          phoneNumber: phoneNumber,
           photoURL:
             "https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png",
-          phoneNumber: phoneNumber,
         });
-      })
-      .then((authUser) => {
-        if (authUser) {
-          db.collection("users").doc(authUser.uid).set({
-            firstName: name,
-            secondName: SecondName,
-            email: email,
-            userType: checked,
-            userId: authUser.uid,
-            phone: phoneNumber,
-          });
+        if (!authUser.user.emailVerified) {
+          authUser.user.sendEmailVerification();
         }
+        db.collection("users").doc(authUser.user.uid).set({
+          firstName: name,
+          secondName: SecondName,
+          email: email,
+          userType: checked,
+          userId: authUser.user.uid,
+          phone: phoneNumber,
+        });
+
+        navigateTo(authUser.user.uid);
       })
       .catch((error) => {
-         alert(error.message);
+        alert(error.message);
         setLoading(false);
       });
-
-    await auth.onAuthStateChanged((authUser) => {
-      console.log(authUser);
-      if (authUser) {
-        if (!authUser.emailVerified) {
-          authUser.sendEmailVerification();
-        }
-        db.collection("users")
-          .doc(authUser.uid)
-          .set({
-            firstName: name,
-            secondName: SecondName,
-            email: email,
-            userType: checked,
-            userId: authUser.uid,
-            phone: phoneNumber,
+    const navigateTo = (id) => {
+      checked === "Driver"
+        ? navigation.push("Driver", {
+            userId: id,
           })
-          .then(() =>
-            checked === "Driver"
-              ? navigation.push("Driver", {
-                  userId: authUser.uid,
-                })
-              : navigation.replace("ConfirmScreen")
-          )
-          .catch((error) => alert("Error"));
-      }
-    });
+        : navigation.replace("ConfirmScreen");
+    };
   };
 
   if (loading) return <LoadingSpinner />;

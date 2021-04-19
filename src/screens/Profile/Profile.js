@@ -17,7 +17,6 @@ import { Button } from "react-native";
 import Dialog from "react-native-dialog";
 import * as firebase from "firebase";
 import LoadingSpinner from "../../components/LoadingSpinner";
-
 const Profile = ({ navigation, route }) => {
   const user = route.params.userInfo;
   const [firstName, setFirstName] = useState(user.firstName);
@@ -30,6 +29,7 @@ const Profile = ({ navigation, route }) => {
   const [userCurrentPass, setUserCurrentPass] = useState("");
   const [passVisible, setPassVisible] = useState(false);
   const [emailVisible, setemailVisible] = useState(false);
+  const [phone, setPhone] = useState(user.phone);
 
   useEffect(() => {
     if (route.params.driverInfo) {
@@ -130,6 +130,7 @@ const Profile = ({ navigation, route }) => {
             secondName: secondName,
             email: email,
             driverInfo: driverInfo,
+            phone: phone,
           })
           .then(() => {
             setLoading(false);
@@ -193,6 +194,14 @@ const Profile = ({ navigation, route }) => {
                   style={styles.input}
                   value={secondName}
                   onChangeText={(text) => setSecondName(text)}
+                />
+              </View>
+              <View style={styles.textInput}>
+                <Text style={styles.label}>Phone : </Text>
+                <TextInput
+                  style={styles.input}
+                  value={phone}
+                  onChangeText={(text) => setPhone(text)}
                 />
               </View>
               <Pressable onPress={showEmailDialog}>

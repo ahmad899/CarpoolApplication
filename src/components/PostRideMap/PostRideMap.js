@@ -44,6 +44,7 @@ const PostRideMap = ({
   }, [originPlace, destinationPlace]);
 
   const route = useRoute();
+
   return (
     <MapView
       style={styles.map}

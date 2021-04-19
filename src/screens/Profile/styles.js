@@ -9,9 +9,9 @@ export default StyleSheet.create({
   topContainer: {
     backgroundColor: "white",
     alignItems: "center",
-    height: "90%",
-    width: "90%",
-    margin: 10,
+    height: "100%",
+    width: "95%",
+    margin: 5,
     borderRadius: 50,
   },
   profileAvatar: {
