@@ -18,26 +18,26 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-
   //login process
-  const onLoginPress = async () => {
+  const onLoginPress = () => {
     setLoading(true);
-    await auth
-      .signInWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        console.log(authUser.user.emailVerified);
-        if (authUser.user.emailVerified) {
+    setTimeout(async () => {
+      await auth
+        .signInWithEmailAndPassword(email, password)
+        .then((authUser) => {
+          if (authUser.user.emailVerified) {
+            setLoading(false);
+            navigation.navigate("Home");
+          } else {
+            setLoading(false);
+            alert("Go to your email to verify");
+          }
+        })
+        .catch((error) => {
+          alert("credential error");
           setLoading(false);
-          navigation.replace("Home");
-        } else {
-          setLoading(false);
-          alert("Go to your email to verify");
-        }
-      })
-      .catch((error) => {
-        alert("credential error");
-        setLoading(false);
-      });
+        });
+    }, 5000);
   };
 
   const onFooterLinkPress = () => {
