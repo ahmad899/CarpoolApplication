@@ -8,11 +8,11 @@ import {
   KeyboardAvoidingView,
   StatusBar,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import styles from "./style";
 import { auth } from "../../../firebaseConfig/firebaseConfig";
 import LoadingSpinner from "../../components/LoadingSpinner";
-
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,44 +20,46 @@ export default function LoginScreen({ navigation }) {
 
   //login process
   const onLoginPress = () => {
+    auth.signOut();
     setLoading(true);
-    setTimeout(async () => {
-      await auth
-        .signInWithEmailAndPassword(email, password)
-        .then((authUser) => {
-          if (authUser.user.emailVerified) {
-            setLoading(false);
-            navigation.navigate("Home");
-          } else {
-            setLoading(false);
-            alert("Go to your email to verify");
-          }
-        })
-        .catch((error) => {
-          alert("credential error");
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        if (authUser.user.emailVerified) {
           setLoading(false);
-        });
-    }, 5000);
+          navigation.replace("Home");
+        } else {
+          setLoading(false);
+          alert("Go to your email to verify");
+        }
+      })
+      .catch((error) => {
+        alert("credential error");
+        setLoading(false);
+      });
   };
 
   const onFooterLinkPress = () => {
     navigation.navigate("SignUp");
   };
 
+  const onResetPass = () => {
+    navigation.navigate("ResetPass");
+  };
+
   if (loading) return <LoadingSpinner />;
   else
     return (
       <KeyboardAvoidingView
-        behavior="padding"
         style={styles.container}
         style={{ flex: 1, width: "100%" }}
       >
-        <StatusBar style="light" />
+        <StatusBar />
         <Image
           style={styles.logo}
           source={require("../../../assets/logIn.jpg")}
         />
-        <View style={styles.inputContainer}>
+        <ScrollView style={styles.inputContainer}>
           <TextInput
             style={styles.input}
             placeholder="E-mail"
@@ -90,8 +92,14 @@ export default function LoginScreen({ navigation }) {
                 Sign up
               </Text>
             </Text>
+            <Text style={styles.footerText}>
+              Forget password?{""}
+              <Text onPress={onResetPass} style={styles.footerLink}>
+                Reset
+              </Text>
+            </Text>
           </View>
-        </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     );
 }

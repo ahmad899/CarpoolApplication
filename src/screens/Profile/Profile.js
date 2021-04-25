@@ -33,7 +33,7 @@ const Profile = ({ navigation, route }) => {
 
   useEffect(() => {
     if (route.params.driverInfo) {
-      setDriverInfo(route.params.driverInfo);
+      const unsubscribe = setDriverInfo(route.params.driverInfo);
     }
   }, [route.params]);
 

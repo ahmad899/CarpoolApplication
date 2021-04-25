@@ -22,7 +22,7 @@ const UserProfileScreen = ({ navigation, route }) => {
   const user = route.params.data;
   const userType = user.userType;
   const chatid = auth.currentUser.uid + user.userId;
-
+  
   const createChat = async () => {
     await db
       .collection("chats")

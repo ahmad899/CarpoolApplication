@@ -4,8 +4,9 @@
     "slug": "final-carpool-project",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/playstore.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/playstore.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,7 +24,13 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.ahmad9999.finalcarpoolproject"
+      "config": {
+                "googleMaps": {
+                    "apiKey": "AIzaSyDCip0X6KBOArMJiWQ1uVEQbCxon_9Xwgs"
+                }
+            },
+      "package": "com.ahmad9999.finalcarpoolproject",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

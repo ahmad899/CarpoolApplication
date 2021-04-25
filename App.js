@@ -8,7 +8,7 @@ const App = () => {
   const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
-    (async () => {
+    const unsubscribe = (async () => {
       let { status } = await Location.requestPermissionsAsync();
       if (status !== "granted") {
         setErrorMsg("Permission to access location was denied");
@@ -19,7 +19,6 @@ const App = () => {
       setLocation(location);
     })();
   }, []);
-
 
   if (location === null) return <LoadingSpinner />;
   else return <Router location={location} />;

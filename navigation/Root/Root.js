@@ -15,6 +15,7 @@ import RideChatScreen from "../../src/screens/RideChatScreen/RideChatScreen";
 import EditMyRideScreen from "../../src/screens/EditMyRideScreen/EditMyRideScreen";
 import UserProfileScreen from "../../src/screens/UserProfileScreen/UserProfileScreen";
 import ConfirmScreen from "../../src/screens/ConfirmScreen/ConfirmScreen";
+import ResetPass from "../../src/screens/ResetPass/ResetPass";
 const Stack = createStackNavigator();
 
 const Root = ({ location }) => {
@@ -37,7 +38,6 @@ const Root = ({ location }) => {
         <Stack.Screen name="SignUp" component={RegistrationScreen} />
         <Stack.Screen name="Driver" component={DriverInfoScreen} />
         <Stack.Screen name="ConfirmScreen" component={ConfirmScreen} />
-
         <Stack.Screen
           name="Home"
           component={HomeStackNavigator}
@@ -52,6 +52,7 @@ const Root = ({ location }) => {
         <Stack.Screen name="RideChatScreen" component={RideChatScreen} />
         <Stack.Screen name="EditMyRideScreen" component={EditMyRideScreen} />
         <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
+        <Stack.Screen name="ResetPass" component={ResetPass} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -8,7 +8,7 @@ import {
   FlatList,
   TextInput,
 } from "react-native";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { useRoute } from "@react-navigation/native";
 const HomeScreenMap = (props) => {
   const route = useRoute();
@@ -20,7 +20,6 @@ const HomeScreenMap = (props) => {
       style={styles.map}
       showsUserLocation={true}
       showsMyLocationButton={true}
-      provider={PROVIDER_GOOGLE}
       initialRegion={{
         latitude: latitude,
         longitude: longitude,

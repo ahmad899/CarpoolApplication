@@ -19,7 +19,6 @@ const NotificationScreen = () => {
             data: doc.data(),
           }))
         );
-   
       });
     return unsubscribe;
   }, []);

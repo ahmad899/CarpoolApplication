@@ -22,7 +22,6 @@ import { DrawerActions } from "@react-navigation/native";
 import { auth, db } from "../../firebaseConfig/firebaseConfig";
 import PostRideScreen from "../../src/screens/PostRideScreen/PostRideScreen";
 import HistoryRideScreen from "../../src/screens/HistoryRideScreen/HistoryRideScreen";
-import RideScreen from "../../src/screens/RideScreen/RideScreen";
 import DrawerContent from "../../src/components/DrawerContent/DrawerContent";
 import ViewRidesScreen from "../../src/screens/ViewRidesScreen/ViewRidesScreen";
 import MyRides from "../../src/screens/MyRides/MyRides";
@@ -88,7 +87,6 @@ const HomeStackNavigator = ({ navigation, route }) => {
           component={HomeScreen}
           initialParams={{ location: route.params.location, user: user }}
         />
-        <Drawer.Screen name="Ride" component={RideScreen} />
         <Drawer.Screen name="PostRide" component={PostRideScreen} />
         <Drawer.Screen name="History" component={HistoryRideScreen} />
         <Drawer.Screen name="Settings" component={Settings} />
@@ -97,7 +95,6 @@ const HomeStackNavigator = ({ navigation, route }) => {
         <Drawer.Screen name="Notification" component={NotificationScreen} />
         <Drawer.Screen name="ChatsScreen" component={ChatsScreen} />
         <Drawer.Screen name="ViewProfile" component={ViewProfileScreen} />
-       
       </Drawer.Navigator>
     );
 };

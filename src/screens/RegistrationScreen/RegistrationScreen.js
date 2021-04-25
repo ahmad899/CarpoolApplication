@@ -48,7 +48,6 @@ export default function RegistrationScreen({ navigation }) {
           userId: authUser.user.uid,
           phone: phoneNumber,
         });
-
         navigateTo(authUser.user.uid);
       })
       .catch((error) => {

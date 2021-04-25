@@ -183,7 +183,12 @@ const BookRideScreen = () => {
           <View style={styles.buttonContainer}>
             {userInfo.userType === "Driver" ? (
               <>
-                <TouchableOpacity style={styles.subContainer}>
+                <TouchableOpacity
+                  style={styles.subContainer}
+                  onPress={() =>
+                    navigation.navigate("UserProfileScreen", { data: userInfo })
+                  }
+                >
                   <View style={styles.button}>
                     <Text style={styles.buttonText}>VIEW DRIVER INFO</Text>
                   </View>
