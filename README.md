@@ -1,12 +1,12 @@
 
-# Carpool Applicaiton
+# Carpool Application
 > #### Carpool app that helps drivers and passengers create or request rides and reduce their traveling costs! The app is entirely built with React-native and firebase.
 
 
 
 ## Technologies Used
 - Expo - version 4.4.3
-- Firebase - version 9.10
+- Firebase(authintication, firestore) - version 9.10
 - Yarn - version 1.22.10
 ## Api's
 - Google maps api.
@@ -22,7 +22,6 @@
 <img src="https://user-images.githubusercontent.com/44145014/126554836-1fdb6f9d-fa56-4177-ab6a-33cc60d02e9f.png" width=200>
 <img src="https://user-images.githubusercontent.com/44145014/126555122-fc24d407-0e26-42cb-986b-4ba9e507c117.png" width=200>
 <div>
-
 - Post Ride
 <div style="display:flex;flex-directino:row;">
 <img src="https://user-images.githubusercontent.com/44145014/126557057-7ad6aeca-49bb-48ac-ae6e-7fd764899afc.png" width=200>
@@ -30,7 +29,6 @@
 <img src="https://user-images.githubusercontent.com/44145014/126556912-0f07d4a1-2e07-4cf2-8642-6a54bf1281d8.png" width=200>
 <img src="https://user-images.githubusercontent.com/44145014/126556950-e5308165-523a-41d9-9f44-8c6f5d213b34.png" width=200>
 <div>
-
 - View available rides, Book or Offer ride
 <div style="display:flex;flex-directino:row;">
 <img src="https://user-images.githubusercontent.com/44145014/126557425-4f1e4539-ad74-4a4c-bae1-628bf62411fa.png" width=200>
@@ -38,7 +36,6 @@
 <img src="https://user-images.githubusercontent.com/44145014/126557763-a452500d-8da8-4a36-aa4a-2a3349a3fb3b.png" width=200>
 <img src="https://user-images.githubusercontent.com/44145014/126557800-70124c84-6fb8-43fc-a392-a508b7371729.png" width=200>
 <div>
-
 - Notification and Communication
 <div style="display:flex;flex-directino:row;">
 <img src="https://user-images.githubusercontent.com/44145014/126558094-ecf8b83c-c55c-4ba1-ae14-a0de64a40836.png" width=200>
@@ -46,7 +43,18 @@
 <img src="https://user-images.githubusercontent.com/44145014/126558263-4eb2d50c-4421-4658-b9a3-2726fbdc3b93.png" width=200>
 <img src="https://user-images.githubusercontent.com/44145014/126558298-57b666a3-9e52-4dfb-bf2c-a77f85cc814c.png" width=200>
 <div>
+  
+  ## Firebase
+- Authentication 
+<img src="https://user-images.githubusercontent.com/44145014/126560427-17d4d37b-5bcf-4f53-b571-0441089dca2e.png">
+- Cloud Firestore
+<img src="https://user-images.githubusercontent.com/44145014/126560422-1f9ec861-74a1-478e-9292-98dad815a034.png">
 
 
-## Other Screenshots
+  
+## Video
+#### This video shows all the application features
+<video src="https://user-images.githubusercontent.com/44145014/126558566-6c6bd9c4-98a8-42cb-97d6-b129abb9a28f.mp4" /> 
 
+
+  
