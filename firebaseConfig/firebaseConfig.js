@@ -3,7 +3,7 @@ import "firebase/auth";
 import "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDsp1jcG1fifv9LWktLJZOzAjWP_P1mTTg",
+  apiKey: "your api key",
   authDomain: "final-project-carpooling.firebaseapp.com",
   projectId: "final-project-carpooling",
   storageBucket: "final-project-carpooling.appspot.com",
